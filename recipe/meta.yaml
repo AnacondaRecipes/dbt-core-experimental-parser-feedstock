@@ -1,0 +1,50 @@
+{% set name = "dbt-core-experimental-parser" %}
+{% set version = "2.0.0b2" %}
+
+package:
+  name: {{ name }}
+  version: {{ version }}
+
+source:
+  url: https://pypi.org/packages/source/{{ name[0] }}/{{ name }}/{{ name.replace('-', '_')}}-{{ version }}.tar.gz
+  sha256: 47de95deeeed7182b846e490267a99bde7153a3c1856511a7213259343555292
+
+build:
+  number: 0
+  script: {{ PYTHON }} -m pip install . -vv --no-deps --no-build-isolation
+  missing_dso_whitelist:
+    - /lib64/libdl.so.2  # [linux]
+    - /lib64/libpthread.so.0  # [linux]
+    - /lib64/libm.so.6  # [linux]
+    - /lib64/libc.so.6  # [linux]
+    - lib/libgcc_s.so.1  # [linux]
+    - /lib64/ld-linux-x86-64.so.2  # [linux and x86_64]
+  skip: true  # [py<39]
+
+requirements:
+  host:
+    - pip
+    - python
+    - packaging >=24
+  run:
+    - python
+
+test:
+  commands:
+    - pip check
+  requires:
+    - pip
+
+about:
+  home: https://www.getdbt.com
+  summary: Build analytics the way engineers build applications
+  license: Apache-2.0
+  license_family: Apache
+  license_file: LICENSE.txt
+  description: dbt enables data analysts and engineers to transform their data using the same practices that software engineers use to build applications.
+  dev_url: https://github.com/dbt-labs/dbt-core
+  doc_url: https://docs.getdbt.com
+
+extra:
+  recipe-maintainers:
+    - snegireff
