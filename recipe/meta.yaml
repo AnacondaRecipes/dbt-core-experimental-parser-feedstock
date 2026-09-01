@@ -10,7 +10,7 @@ source:
   sha256: 47de95deeeed7182b846e490267a99bde7153a3c1856511a7213259343555292
 
 build:
-  number: 0
+  number: 1
   script: {{ PYTHON }} -m pip install . -vv --no-deps --no-build-isolation
   missing_dso_whitelist:
     - /lib64/libdl.so.2  # [linux]
